@@ -1,0 +1,101 @@
+export ARCH=arm
+export CROSS_COMPILE=arm-none-linux-gnueabi-
+export PATH=/opt/freescale/usr/local/gcc-4.6.2-glibc-2.13-linaro-multilib-2011.12/fsl-linaro-toolchain/bin/:$PATH
+
+
+tftp 169.254.0.10 -g -r vivix_detector
+tftp 169.254.0.10 -g -r vivix_scu
+
+script
+
+/etc/init.d/network start
+ifconfig br-lan 169.254.1.13 netmask 255.255.0.0
+
+mkdir /tmp
+mount -t tmpfs -o size=128M tmpfs /tmp
+
+cp /mnt/mmcblk0p1/* /root
+cd /root
+chmod +x vivix_detector
+
+insmod /root/vivix_flash.ko
+insmod /root/vivix_roic.ko
+insmod /root/vivix_tg.ko
+insmod /root/vivix_spi.ko
+insmod /root/vivix_gpio.ko
+mknod /dev/vivix_flash c 250 0
+mknod /dev/vivix_tg c 248 0
+mknod /dev/vivix_roic c 249 0
+mknod /dev/vivix_spi c 247 0
+mknod /dev/vivix_gpio c 246 0
+
+iw dev wlan0 survey dump  : to get noise floor info
+iw dev wlan0 station dump : to get per station rssi or in client mode
+iw dev wlan0 link         : to get association link quality.
+
+1. Kerenl
+
+make_rev.sh 열어서 Kernel 버전 수정
+
+./make_rev.sh (Kernel 버전 및 리비전 적용)
+
+make uImage LOADADDR=0x10008000 (uImage: arch/arm/boot/uImage)
+
+make imx6dl-vwdetector.dtb (dtb:  arch/arm/boot/dts/)
+
+make modules	(ath driver)
+
+2. Bootloader
+
+make_rev.sh 열어서 BOOTLoADER_VERSION 수정
+
+./make_rev.sh (버전 및 리비전 적용을 위한 헤더파일 생성)
+
+make distclean
+
+make clean
+
+make vwdetector_config
+
+make
+
+3. Ramdisk
+
+make_image.sh 열어서 version 수정
+
+./make_image.sh (버전 및 리비전 적용하여 이미지 생성)
+
+    tftp로 받아서 올리는 방법
+
+tftp 0x12000000 u-boot.imx;
+
+mmc dev 1;
+
+mmc open 1;
+
+mmc write 0x12000000 0x2 0x400
+
+    SD card에 있는 bootloader를 복사
+
+mmc dev 0;
+
+mmc read 0x12000000 2 0x400;
+
+mmc dev 1;
+
+mmc open 1;
+
+mmc write 0x12000000 2 0x400
+
+- dtb file tftp up
+
+tftp ${fdt_addr} imx6dl-vwdetector.dtb; mmc dev 1 ;mmc write ${fdt_addr} 0x7800 0x200
+
+- ramdisk file tftp up
+
+tftp ${ramdisk_addr} uramdisk.img; mmc dev 1 ;mmc write ${ramdisk_addr} 0x8000 0x8000
+
+- kernel img tftp up
+
+tftp ${loadaddr} uImage; mmc dev 1 ; mmc write ${loadaddr} 0x800 0x2a00
+ 

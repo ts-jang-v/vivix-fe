@@ -1,0 +1,195 @@
+<html>
+<head>
+	<title>main</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0 maximum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/vieworks.css?version=20160121">
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/jquery.scrollTo-min.js"></script>
+	<script src="js/vieworks.js?version=20160121"></script>
+	<script src="js/Gettext.js?version=20160121"></script>
+	<script	src="data/us.json?version=20160121"></script>
+	<script src="data/ch.json?version=20160121"></script>
+	<script src="js/lang_api.js?version=20160121"></script>
+	<script src="js/sha1.js"></script>
+	<script src="js/jquery.longclick-min.js"></script>
+	<script src="js/action.js?version=20160121"></script>
+</head>
+<body onbeforeunload="unloadPage();">
+
+<div id="wrap">
+
+<div id="status">
+<div class="status_u">
+<div class="status_l" id="status_l_bat">
+</div>
+<div class="status_l" id="status_l_cnt">
+</div>
+<div class="status_l" id="status_l_logo">
+<img src="img/product.png" height=25px  alt="vieworks" align="middle"/>
+</div>
+<div class="status_l">
+</div>
+<div class="status_l" id="status_l_logout">
+<button type="button" class="btn2" title="Add Step" id="status_l_logout_btn" onclick="logoutSess();"></button>
+</div>
+</div>
+</div>
+
+<div id="nav" class="nav"> 
+<ul class="nav_u"> 
+<li class="nav_l nav_1 click"><a class="nav_a lang_worklist"></a> </li> 
+<li class="nav_l nav_2"> <a class="nav_a lang_exposure"></a> </li> 
+<li class="nav_l nav_3"> <a class="nav_a lang_setting"></a> </li> 
+</ul> 
+</div>
+
+<div class="sub_nav">
+<ul class="sub_nav_u"> 
+<li class="sub_nav_l sub_nav_1 click"><a class="sub_nav_a lang_list"></a> </li> 
+<li class="sub_nav_l sub_nav_2"> <a class="sub_nav_a lang_registration"></a> </li> 
+<li class="sub_nav_l sub_nav_3"> <a class="sub_nav_a lang_emergency"></a> </li> 
+</ul> 
+</div>
+
+
+
+<!-- preivew menu -->
+<div class="menu1" id="menu1">
+	<div id="menu1_txt">
+		<h2><span class="lang_patient_info"></span></h2>
+		<p><span class="lang_patinet_id"></span> : <span id="menu1_txt_2">none</span><p>
+		<p><span class="lang_name"></span> : <span id="menu1_txt_1">none</span></p>
+		<p><span class="lang_birth"></span> : <span id="menu1_txt_5">none</span></p>
+		<p><span class="lang_accno"></span> : <span id="menu1_txt_3">none</span><p>
+		<p><span class="lang_study_date"></span> : <span id="menu1_txt_4">none</span><p>
+		<h2><span class="lang_step_info"></span></h2>
+		<p><span class="lang_bodypart"></span> : <span id="menu1_txt_6">none</span></p>
+		<p><span class="lang_projection"></span> : <span id="menu1_txt_7">none</span></p>
+		</div>
+	<div id="menu1_btn">
+<!--		<button id="menu1_btn_1" type="button" class="menu1_btn btn" onclick="bclk(this, '1');" title="Select the study">Study</button> -->
+		<button id="menu1_btn_4" type="button" class="menu1_btn btn lang_emergency" onclick="bclk(this, '9');" title="Emergency"></button>
+		<button id="menu1_btn_2" type="button" class="menu1_btn btn lang_bodypart" onclick="bclk(this, '2');" title="Select the bodypard"></button>
+		<button id="menu1_btn_3" type="button" class="menu1_btn btn lang_exposure" onclick="bclk(this, '3');" title="Ready to exposure"></button>
+	</div>
+	<div id="menu1_img_frame">
+		<div id="menu1_img" style="position:relative;">
+		loading...
+		</div>
+	</div>
+</div>
+
+<!--patient nemu -->
+<div class="menu2 show" id="menu2">
+
+<div class="menu2_1 show">
+</div>
+<div class="menu2_2">
+<ul>
+<li class="menu2_2_l"><input type="text" name="id" title="Patient ID" value=""  autofocus="autofocus" id="menu2_2_id" class="menu2_2_input lang_id" placeholder="ID"  onkeyup="checkInputData(this)"  maxlength="64"></input></li>
+<li class="menu2_2_l">
+<input type="text" name="name" title="Name" value="" id="menu2_2_name" class="menu2_2_input lang_name" placeholder="Name" onkeyup="checkInputData(this)"  maxlength="64"></input>
+</li>
+<li class="menu2_2_l"><input type="text" name="birth" title="Date of birth" value="" id="menu2_2_birth" class="menu2_2_input lang_date_of_birth" placeholder="Date of birth(YYYY-MM-DD)"  onblur="checkDate(); checkDateFormat(this);" onkeyup="checkDate()"></input></li>
+<li class="menu2_2_l"><input type="text" name="accno" title="AccNo" value="" id="menu2_2_accno" class="menu2_2_input lang_accno" placeholder="Acc No."  onkeyup="checkInputData(this)"  maxlength="16"></input></li>
+<li class="menu2_2_l"><input type="text" name="etc" title="etc" value="" id="menu2_2_etc" class="menu2_2_input lang_info" placeholder="More information"  onkeyup="checkInputData(this)"  maxlength="11"></input></li>
+</ul>
+<div class="menu2_2_d">
+<button type="button" class="menu2_2_addstep_btn btn2 lang_add_bodypart" title="Add Step" id="menu2_2_stepBtn" onclick="bclk(this,'5');"></button>
+<button type="button" class="menu2_2_toggle_btn btn2" id="menu2_2_toggle_btn" title="" onclick="bclk(this,'8');">&nbsp</button>
+<div class="menu2_2_addstep"></div>
+</div>
+<button type="button" title="Add new study" class="menu2_2_btn btn lang_new_study" id="menu2_2_addBtn" onclick="bclk(this,'4');"></button>
+<p class="caution lang_caution"></p>
+</div>
+
+<div class="menu2_2_3">
+<ul>
+<li class="menu2_2_l"><input type="text" name="id" title="Patient ID" value=""  autofocus="autofocus" id="menu2_2_3_id" class="menu2_2_3_input lang_id" placeholder="ID"  onkeyup="checkInputData(this)"  maxlength="64"></input></li>
+<li class="menu2_2_l">
+<input type="text" name="name" title="Name" value="" id="menu2_2_3_name" class="menu2_2_3_input lang_name" placeholder="Name" onkeyup="checkInputData(this)"  maxlength="64"></input>
+</li>
+<li class="menu2_2_l"><input type="text" name="birth" title="Date of birth" value="" id="menu2_2_3_birth" class="menu2_2_3_input lang_date_of_birth" placeholder="Date of birth(YYYY-MM-DD)"  onblur="checkDate(); checkDateFormat(this);" onkeyup="checkDate()"></input></li>
+<li class="menu2_2_l"><input type="text" name="accno" title="AccNo" value="" id="menu2_2_3_accno" class="menu2_2_3_input lang_accno" placeholder="Acc No."  onkeyup="checkInputData(this)"  maxlength="16"></input></li>
+<li class="menu2_2_l"><input type="text" name="species" title="Species description" value="" id="menu2_2_3_species" class="menu2_2_3_input lang_species" placeholder="Species description" onkeyup="checkInputData(this)"  maxlength="64"></input></li>
+<li class="menu2_2_l"><input type="text" name="breed" title="Breed description" value="" id="menu2_2_3_breed" class="menu2_2_3_input lang_breed" placeholder="Breed description"  onkeyup="checkInputData(this)"  maxlength="64"></input></li>
+<li class="menu2_2_l"><input type="text" name="responsible" title="Responsible person" value="" id="menu2_2_3_responsible" class="menu2_2_3_input lang_responsible" placeholder="Responsible person"  onkeyup="checkInputData(this)"  maxlength="64"></input></li>
+<li class="menu2_2_l"><input type="text" name="etc" title="etc" value="" id="menu2_2_3_etc" class="menu2_2_3_input lang_info" placeholder="More information"  onkeyup="checkInputData(this)"  maxlength="11"></input></li>
+</ul>
+<div class="menu2_2_3_s">
+<select id="neutered" name="netered" style="font-size:15px; height:28px; font-weight: bold">
+</select>
+</div>
+<div class="menu2_2_d">
+<button type="button" class="menu2_2_addstep_btn btn2 lang_add_bodypart" title="Add Step" id="menu2_2_stepBtn" onclick="bclk(this,'5');"></button>
+<button type="button" class="menu2_2_toggle_btn btn2" id="menu2_2_toggle_btn" title="" onclick="bclk(this,'8');">&nbsp</button>
+<div class="menu2_2_addstep"></div>
+</div>
+
+<button type="button" title="Add new study" class="menu2_2_btn btn lang_new_study" id="menu2_2_addBtn" onclick="bclk(this,'4');"></button>
+<p class="caution lang_caution"></p>
+</div>
+</div>
+
+<div class="menu3" id="menu3">
+<div id="menu3_main">
+<ul>
+<li id="menu3_delete_patientinfo">
+<h4><span class="lang_delete_patient_info"></span></h4>
+</li>
+<li id="menu3_refresh_xml">
+<h4><span class="lang_refresh"></span></h4>
+</li>
+<li id="menu3_ap_onoff">
+<h4><span class="menu3_ap_off lang_ap"></span></h4>
+</li>
+<li id="menu3_change_password">
+<h4><span class="lang_change_passwd"></span></h4>
+</li>
+<li id="menu3_select_invert_image">
+<h4><span class="lang_select_invert_image"></span></h4>
+</li>
+<li id="menu3_select_usage">
+<h4><span class="lang_select_usage"></span></h4>
+</li>
+</ul>
+</div>
+<div id="menu3_sub">
+</div>
+</div>
+
+<div class="popup_container">
+<div class="popup_frame">
+
+<div class="popup_header" id="popup_header">
+</div>
+<div class="popup_nav" id="popup_nav">
+</div>
+<div class="popup_body" id="popup_body">
+</div>
+<div class="popup_footer" id="popup_footer">
+</div>
+
+</div>
+</div>
+
+
+<div class ="loading"id="loading" style="position:absolute; width:100%; height:100%; z-index:4; left:0px; top:0px;  visibility:hidden; background-color:black; opacity:0.5">
+<div id="loading_icon" style="position:absolute;  width:100px; height:100px; z-index:10; opacity:1;">
+<img href="#" src="./img/loading.gif"></img>
+</div>
+</div>
+
+
+
+</div>
+<script>
+//CalAddCss();
+//initCal({id:"menu2_2_birth",type:"day",today:"y", min:"1900"});			
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+tftp 169.254.0.10 -g -r u-boot.imx
+update start boot /tmp/u-boot.imx
+update res boot
+update stop boot
+
+
+tftp 169.254.0.10 -g -r uImage
+
+update start kernel /tmp/uImage
+update res kernel
+update stop kernel
+
+tftp 169.254.0.10 -g -r uramdisk.img
+update start rfs /tmp/uramdisk.img
+update res rfs
+update stop rfs
+
+tftp 169.254.0.10 -g -r imx6dl-vwdetector.dtb
+update start dtb /tmp/imx6dl-vwdetector.dtb
+update res dtb
+update stop dtb
+
+tftp 169.254.0.10 -g -r fxrd1012n_V00_02_D15.bin
+update start fpga /tmp/fxrd1012n_V00_02_D15.bin
+update res fpga
+update stop fpga
+
+tftp 169.254.0.10 -g -r pwr_cntr.hex
+update start micom /tmp/pwr_cntr.hex
+update res micom
+update stop micom
+
+
+arping -q -D -I br-lan -c 1 169.254.0.10; echo $?
+
+// 제일 오래된 파일 삭제
+rm $(ls -1t /tmp/*.bin | tail -n 1)
+
+cat /sys/class/net/eth0/speed > /tmp/speed
+
+// dir 내 파일 수
+ls -1 dir | wc -l
+
+// 무선 설정
+uci del wireless.@wifi-device[0].channel
+uci del wireless.@wifi-device[0].encryption
+uci del wireless.@wifi-device[0].key
+uci del wireless.@wifi-device[0].htmode
+uci del wireless.@wifi-device[0].hwmode
+uci del wireless.@wifi-device[0].ht_capab
+
+uci del wireless.@wifi-device[0].disabled
+uci del wireless.@wifi-iface[0].network
+uci del wireless.@wifi-iface[0].network=lan
+
+uci set wireless.@wifi-iface[0].mode=sta
+uci set wireless.@wifi-iface[0].client_bridge=1
+uci set wireless.@wifi-iface[0].ssid=vivix_ke
+uci set wireless.@wifi-iface[0].channel=auto
+uci set wireless.@wifi-iface[0].encryption=psk2
+uci set wireless.@wifi-iface[0].key=1234567890
+
+uci commit wireless
+
+/etc/init.d/network restart
+
+ifconfig br-lan 169.254.1.10 netmask 255.255.0.0
+ifconfig wlan0 169.254.1.10 netmask 255.255.0.0
+
+ifconfig br-lan down
+ifconfig wlan0 169.254.1.10 netmask 255.255.0.0

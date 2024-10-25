@@ -1,0 +1,178 @@
+﻿#ifndef __GPIO_PIN_DEF_H
+#define __GPIO_PIN_DEF_H
+
+/***************************************************************************************************
+*	Include Files
+***************************************************************************************************/
+
+/***************************************************************************************************
+*	Constant Definitions
+***************************************************************************************************/
+#if 0//testcode
+#define GPIO1					(1)
+#define GPIO2					(2)
+#define GPIO3					(3)
+#define GPIO4					(4)
+#define GPIO5					(5)
+#define GPIO6					(6)
+
+/* nor flash mux control */
+#define	AEN_PIN					(22)	// MUX_AEN pin GPIO2_IO22 output
+#define BEN_PIN					(21)	// MUX_BEN pin GPIO2_IO21 output
+
+/* external interface signal */
+#define EXP_SYNC_BIT_MASK  		(18) 	// EXP SYNC GPIO4_IO18 input
+#define EXP_OK_BIT_MASK  		(16) 	// EXP OK  GPIO4_IO16 input
+
+/* nor flash quad spi */
+#define FD3_BIT_MASK 			(10) 	// F_CFG_D3 GPIO5_I10
+#define FD2_BIT_MASK 			(9) 	// F_CFG_D2 GPIO5_I9
+#define FD1_BIT_MASK 			(8) 	// F_CFG_D1 GPIO5_I8
+#define FD0_BIT_MASK 			(7) 	// F_CFG_D0 GPIO5_I7
+#define FCLK_BIT_MASK  			(6) 	// F_CCLK GPIO5_I6
+#define FCS_BIT_MASK  			(5) 	// F_FCS_B GPIO5_I5
+
+/* board version */
+#define VER0_BIT_MASK			(0)		// VER0 GPIO2_IO00 input
+#define VER1_BIT_MASK			(1)		// VER1 GPIO2_IO01 input
+#define VER2_BIT_MASK			(2)		// VER2 GPIO2_IO02 input
+#define VER3_BIT_MASK			(3)		// VER3 GPIO2_IO03 input
+#define VER4_BIT_MASK			(4)		// VER4 GPIO2_IO04 input
+
+/* model type */
+#define BD_CFG_0_BIT_MASK		(24)	// BD_CFG_0 GPIO1_IO24 input
+#define BD_CFG_1_BIT_MASK		(28)	// BD_CFG_1 GPIO1_IO28 input
+#define BD_CFG_2_BIT_MASK		(27)	// BD_CFG_2 GPIO1_IO27 input
+
+#define A1_PD_BIT_MASK			(10)	//	A1_PD_BIT_MASK	GPIO6_IO10	output
+#define A2_PD_BIT_MASK			(5)		//	A2_PD_BIT_MASK	GPIO2_IO05	output
+#define A3_PD_BIT_MASK			(6)		//	A3_PD_BIT_MASK	GPIO2_IO06	output
+#define A4_PD_BIT_MASK			(7)		//	A4_PD_BIT_MASK	GPIO2_IO07	output
+
+/* DIP swtich control */
+#define ROIC_TYPE_1_BIT_MASK_1717G	(5)				//  1717G ROIC_TYPE_BIT_MASK	NANDF_D5,  GPIO2_IO05 input, DIP SW1
+#define ROIC_TYPE_2_BIT_MASK_1717G	(6)				//  1717G ROIC_TYPE_BIT_MASK	NANDF_D6,  GPIO2_IO06 input, DIP SW2
+#define ROIC_SINGLE_READOUT_BIT_MASK_1717G	(7)		//  1717G ROIC_SINGLE_READOUT_BIT_MASK	NANDF_D7,  GPIO2_IO07 input, DIP SW3
+#define ROIC_GATE_TYPE_1_BIT_MASK_1717G		(21)	//  1717G ROIC_GATE_TYPE_1_BIT_MASK,	SD1_DATA3, GPIO1_IO21 input, DIP SW4
+#define ROIC_GATE_TYPE_2_BIT_MASK_1717G		(19)	//  1717G ROIC_GATE_TYPE_2_BIT_MASK, 	GPIO1_IO19 input, DIP SW5
+#define RESERVED_1_BIT_MASK_1717G	(17)			//  1717G RESERVED BIT_MASK	SD1_DATA1, GPIO1_IO17 input, DIP SW6
+#define RESERVED_2_BIT_MASK_1717G	(16)			//  1717G RESERVED BIT_MASK	SD1_DATA0, GPIO1_IO16 input, DIP SW7
+#define RESERVED_3_BIT_MASK_1717G	(20)			//  1717G RESERVED BIT_MASK	SD1_CLK, GPIO1_IO20 input, DIP SW8
+
+/* DIP swtich control */
+#define ROIC_TYPE_1_BIT_MASK_0909G_1212G	(30)	//  0909G/1212G ROIC_TYPE_BIT_MASK	GPIO1_IO30 input 
+#define ROIC_TYPE_2_BIT_MASK_0909G_1212G	(31)	//  0909G/1212G ROIC_TYPE_BIT_MASK	GPIO1_IO31 input 
+#define RESERVED_1_BIT_MASK_0909G_1212G		(29)	//  0909G/1212G RESERVED BIT_MASK	GPIO1_IO29 input 
+#define RESERVED_2_BIT_MASK_0909G_1212G		(25)	//  0909G/1212G RESERVED BIT_MASK	GPIO1_IO25 input 
+
+/* fpga 200T configuration pin */
+#define	FPGA_RDWR_B						(12) // FPGA_RDWR GPIO5_IO12 output	
+#define FPGA_CSI_B						(13) // FPGA_CSI GPIO5_IO13 output
+#define FPGA_RST_BIT_MASK	  			(14) // TG_PD GPIO5_IO14	output   	
+#define FPGA_PROG_B						(15) // PROG_PIN GPIO5_IO15 output
+#define FPGA_INIT						(16) // INIT PIN GPIO5_IO16 input 	
+#define	FPGA_DONE						(17) // DONE PIN GPIO5_IO17 input
+#define FPGA_CCLK				  		(30) // F_CCLK GPIO4_IO30	output
+
+/* fpga 75T configuration pin */
+#define	FPGA_75T_DONE_PIN				(2)	 // DONE PIN GPIO1_IO02 input
+#define FPGA_75T_PROG_PIN				(27) // PROG_PIN GPIO4_IO27 output
+
+/* BRAM read / write interrupt pin (for calibration data transfer) */
+#define ISP_BRAM_RDWR_INTR_BIT_MASK		(8)	 // F_INF1	GPIO6_IO08	input
+
+#define TG_PD_BIT_MASK	  				(19) // TG_PD GPIO4_IO19	output
+#define ROIC_CLK_EN				  		(20) // RO_CLK_EN GPIO4_IO20	output
+
+#define	DFF_OE							(00) // GPIO1_IO00 output
+
+/* i2c4 */
+#define I2C4_SCL						(9)	 // GPIO6_IO09 output
+#define I2C4_SDA						(16) // GPIO6_IO16 input/output
+
+/* isp ABC interrupt */
+#define ISP_ABC_INT_BIT_MASK			(7)	// F_INF7	GPIO6_IO07	input
+
+/* gige interrupt */
+#define	F_INF3_PORT						(14) // gige port 0, GPIO6_IO14 input
+#define	F_INF2_PORT						(11) // gige port 1, GPIO6_IO11 input
+
+/* spi1 */
+#define ECSPI1_SS0						(9) 	//ECSPI1_SS0 GPIO4_I09 - ADC
+#define ECSPI1_SS1						(10)	//ECSPI1_SS1 GPIO4_I10
+#define ECSPI1_SS2						(11)	//ECSPI1_SS1 GPIO4_I11 - FRAM
+#define ECSPI1_SS3						(15)	//ECSPI1_SS1 GPIO4_I11
+#define ECSPI1_SCLK						(6) 	//ECSPI1_SS0 GPIO4_IO06
+#define ECSPI1_MOSI						(7) 	//ECSPI1_SS0 GPIO4_IO07
+#define ECSPI1_MISO						(8) 	//ECSPI1_SS0 GPIO4_IO08
+#define ECSPI1_HOLD						(14)	//ECSPI1_HOLD GPIO4_IO14
+
+/* spi4 */
+#define SS0_BIT_MASK  					(24) 	// SPI_SS0 GPIO4_I24
+#define SS1_BIT_MASK  					(25) 	// SPI_SS0 GPIO4_I25
+#define SS2_BIT_MASK  					(26) 	// SPI_SS2 GPIO4_I26
+#define SCLK_BIT_MASK 					(21) 	// SPI_SCLK GPIO4_I21
+#define MOSI_BIT_MASK  					(22) 	// SPI_MOSI GPIO4_I22
+#define MISO_BIT_MASK  					(23) 	// SPI_MISO GPIO4_I23
+
+// [20190625][yongjin] ROIC IO voltage 1.8V를 맞추기 위하여 SPI PIN을 변경 함 
+//  Hardware rev. 2 ~ 3 : Ver1
+#define ROIC_SPI_SCLK_VER1_PINGRP		(4)
+#define	ROIC_SPI_SCLK_VER1_PORT			(21)					// SPI_SCLK GPIO4_IO21
+#define ROIC_SPI_MOSI_VER1_PINGRP		(4)
+#define	ROIC_SPI_MOSI_VER1_PORT			(22)					// SPI_MOSI GPIO4_IO22
+#define ROIC_SPI_MISO_VER1_PINGRP		(4)
+#define	ROIC_SPI_MISO_VER1_PORT			(23)					// SPI_MISO GPIO4_IO23						
+#define ROIC_SPI_SS_VER1_PINGRP			(4)
+#define	ROIC_SPI_SS_VER1_PORT			(24)					// SPI_SS0 GPIO4_IO24
+//  Hardware rev. 4 ~ : Ver2
+#define ROIC_SPI_SCLK_VER2_PINGRP		(1)
+#define	ROIC_SPI_SCLK_VER2_PORT			(15)					// SPI_SCLK GPIO1_IO15
+#define ROIC_SPI_MOSI_VER2_PINGRP		(1)
+#define	ROIC_SPI_MOSI_VER2_PORT			(14)					// SPI_MOSI GPIO1_IO14
+#define ROIC_SPI_MISO_VER2_PINGRP		(1)
+#define	ROIC_SPI_MISO_VER2_PORT			(13)					// SPI_MISO GPIO1_IO13						
+#define ROIC_SPI_SS_VER2_PINGRP			(1)
+#define	ROIC_SPI_SS_VER2_PORT			(12)					// SPI_SS0 GPIO1_IO12
+
+#define ROIC_SCLK_MUX1_OE_BIT_MASK		(22)					//GPIO5_IO22
+#define ROIC_SCLK_MUX2_OE_BIT_MASK		(23)					//GPIO5_IO23
+#define ROIC_SCLK_MUX3_OE_BIT_MASK		(24)					//GPIO5_IO24
+#define ROIC_SCLK_MUX_S0_BIT_MASK		(25)					//GPIO5_IO25
+#define ROIC_SCLK_MUX_S1_BIT_MASK		(26)					//GPIO5_IO26
+#define ROIC_SCLK_MUX_S2_BIT_MASK		(27)					//GPIO5_IO27
+
+#define	ROIC_MCLK_EN_BIT_MASK			(20)					// ROIC_CLK_EN  GPIO4_IO20	//MAY NOT NEED		
+#define	ROIC_TPSEL_BIT_MASK				(20)					// GPIO5_IO20
+
+#define DAC_SPI_SCLK_PINGRP				(6)
+#define	DAC_SPI_SCLK_PORT				(5)						//CSI0_DAT19, GPIO6_IO05
+#define DAC_SPI_MOSI_PINGRP				(6)
+#define	DAC_SPI_MOSI_PORT				(4)						//CSI0_DAT17, GPIO6_IO04
+#define DAC_SPI_MISO_PINGRP				(6)
+#define	DAC_SPI_MISO_PORT				(3)						//CSI0_DAT18, GPIO6_IO03
+#define DAC1_SPI_SS_PINGRP				(6)
+#define	DAC1_SPI_SS_PORT				(1)						//CSI0_DAT15, GPIO6_IO01
+#define DAC2_SPI_SS_PINGRP				(6)
+#define	DAC2_SPI_SS_PORT				(2)						//CSI0_DAT16, GPIO6_IO02
+#define	DAC_RST_BIT_MASK				(00)					//CSI0_DAT14, GPIO6_IO00	
+#endif
+/***************************************************************************************************
+*	Type Definitions
+***************************************************************************************************/                                         
+
+/***************************************************************************************************
+*	Macros (Inline Functions) Definitions
+***************************************************************************************************/
+
+/***************************************************************************************************
+*	Variable Definitions
+***************************************************************************************************/
+
+/***************************************************************************************************
+*	Function Prototypes
+***************************************************************************************************/
+
+
+#endif /* __GPIO_PIN_DEF_H */
+

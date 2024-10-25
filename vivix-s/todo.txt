@@ -1,0 +1,41 @@
+1. 버튼 처리 변경
+  : 사양서 작성
+
+2. 상태 정보 표시 창
+  : 사양서 작성
+
+3. 자동 AP 찾기
+  : 사양서 작성
+
+4. Battery 충전 방식 변경
+  : 2개 번갈아가면서 충전하는 대신 한 번에 충전
+
+5. smart offset on/off 처리
+
+6. 유선 전환 삭제
+
+7. AED 처리 구현
+
+8. ROIC 변경
+   : ADI -> TI
+
+9. 영상 재전송
+
+10. model id 처리
+   : h/w pin 읽어서 model id mapping
+
+11. FRAM 대체 EEPROM 변경 처리
+
+12. Serial PROM 변경 처리
+   : micron -> winbond
+
+
+13. 온도 센서 변경 처리
+
+14. RISC port 1417N 대비 변경 사항 정리
+
+15. 모델 별 다른 점 처리
+ - 2532: battery 1개, AED sensor 1개
+ - 3643/4343: battery 2개, AED sensor 2개
+
+

@@ -1,0 +1,13 @@
+/build/tmp
+downloads
+bitbake-cookerdaemon.log
+sstate-cache/
+*.lock
+build/cache
+vivix-s/image/*
+vivix-s/package/*
+!vivix-s/package/package.sh
+!vivix-s/image/dummy
+.git_bak
+sources/
+.repo/

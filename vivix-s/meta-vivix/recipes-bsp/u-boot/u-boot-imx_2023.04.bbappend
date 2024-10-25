@@ -1,0 +1,7 @@
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+SRC_URI += "file://imx8mm-vivix.dtsi;subdir=git/arch/arm/dts"
+SRC_URI += "file://imx8mm-vivix.dts;subdir=git/arch/arm/dts"
+SRC_URI += "file://vivix_config.patch"
+SRC_URI += "file://imx8mm_vivix.h;subdir=git/include/configs"
+SRC_URI += "file://imx8mm_vivix;subdir=git/board/freescale"
+SRC_URI += "file://imx8mm_vivix_defconfig;subdir=git/configs"

@@ -1,0 +1,12 @@
+diff --git a/drivers/media/platform/mxc/capture/Makefile b/drivers/media/platform/mxc/capture/Makefile
+index e6e4b99f9435..130dad67c53c 100644
+--- a/drivers/media/platform/mxc/capture/Makefile
++++ b/drivers/media/platform/mxc/capture/Makefile
+@@ -9,6 +9,7 @@ endif
+ obj-$(CONFIG_VIDEO_MXC_CSI_CAMERA) += mx6s_capture.o
+ obj-$(CONFIG_MXC_VADC) += mxc_vadc.o
+ obj-$(CONFIG_MXC_MIPI_CSI) += mxc_mipi_csi.o
++obj-$(CONFIG_MXC_MIPI_CSI) += efinix_fpga_mipi.o
+ 
+ # Used for iMX 6QDL
+ ov5640_camera_int-objs := ov5640.o

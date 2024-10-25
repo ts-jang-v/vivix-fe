@@ -1,0 +1,5 @@
+arm-none-linux-gnueabi-gcc -c src/sha1.c -I./include
+
+arm-none-linux-gnueabi-ar rc libsha1.a sha1.o
+
+

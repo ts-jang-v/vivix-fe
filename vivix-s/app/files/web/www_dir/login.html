@@ -1,0 +1,128 @@
+<html>
+<head>
+<title>Login</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0 maximum-scale=1.0">
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/login.js?version=20160121"></script>
+<script src="js/Gettext.js?version=20160121"></script>
+<script	src="data/us.json?version=20160121"></script>
+<script src="data/ch.json?version=20160121"></script>
+<script src="js/lang_api.js?version=20160121"></script>
+<script src="js/sha1.js"></script>
+<script>
+function nclk(info)
+{
+	var id = document.getElementById("input_id").value;
+	var passwd = document.getElementById("input_passwd").value;
+	login( hex_sha1(id.toLowerCase()).toUpperCase() ,hex_sha1(passwd.toLowerCase()).toUpperCase(), 
+			function(data){
+			//	window.location = checkReturnValue(data,"ETC") + "?time="+ new Date();
+				window.location = checkReturnValue(data,"ETC") + "?type=" + checkReturnValue(data,"VALUE") + "&time="+ new Date();
+
+			}, 
+			function(data){
+				window.location = "error.html";
+
+			});
+}
+
+function setUI()
+{
+
+	$("#input_id").attr("placeholder",_("ID"));
+	$("#input_passwd").attr("placeholder",_("PASSWORD"));
+	$("#submit").html(_("LOGIN"));
+	$("#copyright").html(_("TITLE"));
+}
+
+function locale(locale)
+{
+	var config_locale;
+	get_config(
+			function(data)
+			{
+				config_locale = change_locale(locale,data);
+				$(".language").css("font-weight","normal");
+				$("#lang_"+config_locale).css("font-weight","bold");
+				setUI();				
+			},
+			function(data)
+			{
+				setUI();				
+			});
+}
+
+function init(data)
+{
+	locale(data);
+	$(".language").click(function(){
+			var country = $(this).attr("id").substr(5,2);
+			locale(country);
+			changeLanguage(country,function(){},function(){});
+
+			});
+
+}
+</script>
+<style>
+#wrap{height:30%; max-width:800px; margin:auto;padding-top:1em}
+.login_d{float:left; width:55%;}
+.login_d:first-child{margin-right:10px; width:40%;}
+ul{padding:0}
+.input_area{width:100%}
+.input_area input{width:100%; height:1.5em; font-size:1.5em}
+.input_area{display:table;width:100%;margin:4px 0 5px}
+.input_area .input_txt{display:block;width:100%;margin:auto; background:#f9f9f9;border:1px solid #edebeb;}
+
+.lbtn{padding:.75em 0 .6em;border:1px solid #bcbcbc;background:#f1f1f1;background:-webkit-gradient(linear,0 0,0 100%,from(#fff),color-stop(.05,#fbfbfb),to(#f1f1f1));font-size:1.2em;color:#666;letter-spacing:-1px}
+.ls{width:100%;padding:.47em 0 .38em;-webkit-border-radius:0;-webkit-appearance:none}
+
+#footer{clear:both;border:1px solid #f0f0ee;position:relative;height:2.3em;width:100%;background:#f0f0ee}
+#footer .info{font-size:0.8em;color:#656262;}
+#footer p.copyright{color:#000; top:-1%}
+
+#language{font-size:0.8em; cursor:pointer;}
+
+#logo{display:block}
+</style>
+
+
+</head>
+<body onload="init('')">
+<div id="wrap">
+	<div class="login_d" align="middle">
+
+		<ul>
+			<li id="logo">
+				<img src="img/product.png" alt="logo" align="middle"/>
+			</li>
+		</ul>
+	</div>
+	<div class="login_d">
+		<ul>
+			<li class="input_area">
+				<input type="text" name="userid" autofocus="autofocus" maxlength="11"  id="input_id" class="input_txt" placeholder="ID" />
+			</li>
+			<li class="input_area">
+				<input type="password" name="userpw" maxlength="16" id="input_passwd" class="input_txt" placeholder="PASSWORD" />
+			</li>
+			<li class="input_area">
+				<button class="lbtn ls"  id="submit" onclick="nclk(this)"></button>
+			</li>
+		</ul>
+	</div>
+	<div id="footer" algin="middle" >
+	<div class="info">
+	<center><p  id="copyright" class="copyright"></p></center>
+
+	<!--<br><center><p id="language"><span id="lang_kr" class="language">한국어</span> · <span id="lang_us" class="language">English (US)</span> · <span id="lang_ch" class="language">中文</span> · <span id="lang_jp" class="language">日本語</span></p></center> -->
+	</div>
+	<center><p id="language"><span id="lang_us" class="language">English (US)</span> · <span id="lang_ch" class="language">中文</span></p></center>
+	</div><!-- E : #footer -->
+	</div>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 399e81d37b3b..c4a2ffd09188 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -3373,6 +3373,39 @@ int spi_controller_resume(struct spi_controller *ctlr)
+ }
+ EXPORT_SYMBOL_GPL(spi_controller_resume);
+ 
++#if 1 /* used by vivix_spi */
++static int __spi_master_match(struct device *dev, const void *data)
++{
++	struct spi_controller *m;
++	u16 *bus_num = data;
++	m = container_of(dev, struct spi_controller, dev);
++	return m->bus_num == *bus_num;
++}
++
++/**
++ * spi_busnum_to_master - look up master associated with bus_num
++ * @bus_num: the master's bus number
++ * Context: can sleep
++ *
++ * This call may be used with devices that are registered after
++ * arch init time.  It returns a refcounted pointer to the relevant
++ * spi_master (which the caller must release), or NULL if there is
++ * no such master registered.
++ */
++struct spi_master *spi_busnum_to_master(u16 bus_num)
++{
++	struct device		*dev;
++	struct spi_controller	*master = NULL;
++	dev = class_find_device(&spi_master_class, NULL, &bus_num,
++				__spi_master_match);
++	if (dev)
++		master = container_of(dev, struct spi_controller, dev);
++	/* reference got in class_find_device */
++	return master;
++}
++EXPORT_SYMBOL_GPL(spi_busnum_to_master);
++#endif
++
+ /*-------------------------------------------------------------------------*/
+ 
+ /* Core methods for spi_message alterations */
+diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
+index 8cc7a99927f9..a9512bad496f 100644
+--- a/include/linux/spi/spi.h
++++ b/include/linux/spi/spi.h
+@@ -867,6 +867,10 @@ extern int devm_spi_register_controller(struct device *dev,
+ 					struct spi_controller *ctlr);
+ extern void spi_unregister_controller(struct spi_controller *ctlr);
+ 
++#if 1 /* used by vivix_spi */
++extern struct spi_controller *spi_busnum_to_master(u16 busnum);
++#endif
++
+ #if IS_ENABLED(CONFIG_ACPI)
+ extern struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+ 						struct acpi_device *adev,

@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>error</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="cache-control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0 maximum-scale=1.0">
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/login.js?version=20160121"></script>
+<script src="js/Gettext.js?version=20160121"></script>
+<script	src="data/us.json?version=20160121"></script>
+<script src="data/ch.json?version=20160121"></script>
+<script src="js/lang_api.js?version=20160121"></script>
+<style>
+#wrap{height:30%; max-width:800px; margin:auto;padding-top:1em}
+.login_d{float:left; width:55%;}
+.login_d:first-child{margin-right:10px;width:40%;}
+ul{padding:0}
+.input_area{width:100%; height:3em}
+.input_area{display:table;width:100%;margin:4px 0 5px}
+#input_area_text{font-size:1.2em}
+
+.lbtn{padding:.75em 0 .6em;border:1px solid #bcbcbc;background:#f1f1f1;background:-webkit-gradient(linear,0 0,0 100%,from(#fff),color-stop(.05,#fbfbfb),to(#f1f1f1));font-size:1.2em;color:#666;letter-spacing:-1px}
+.ls{width:100%;padding:.47em 0 .38em;-webkit-border-radius:0;-webkit-appearance:none}
+
+#footer{clear:both;border:1px solid #f0f0ee;position:relative;height:2em;width:100%;background:#f0f0ee}
+#footer .info{font-size:0.75em;color:#656262;}
+#footer p.copyright{color:#000; top:-1%}
+#logo{display:block}
+</style>
+<script>
+
+// onload
+$(document).ready(function(){
+		var param="";
+		var str="";
+		get_config(
+				function(data)
+				{
+					change_locale('',data);
+					setUI();				
+				},
+				function(data)
+				{
+
+					setUI();				
+				});
+
+});
+
+function setUI()
+{
+
+	$("#submit").html(_("OK"));
+	$("#copyright").html(_("TITLE"));
+
+		document.$_GET = [];      // 이부분이.... php문법이다.. get방식으로 받아온 값이 저장되는곳인듯. 
+		var urlHalves = String(document.location).split('?');   // 현재 문서의 주소를 ?를 기준으로 나눔. www.xxx.com/index.html?var1=1212  였다면 www.xxx.com/index.html 과 var1=1212로 배열에 저장됨. 
+		if(urlHalves[1])
+		{      // get방식으로 넘어온 값이 있으면. 
+			var urlVars = urlHalves[1].split('&');      // 값이 하나가 아닐수도 있으니깐. get방식에서 변수 여러개는 &로 묶여서 온다.
+			for(var i=0; i<=(urlVars.length); i++)
+			{         
+				if(urlVars[i])
+				{            
+					var urlVarPair = urlVars[i].split('=');            
+					document.$_GET[urlVarPair[0]] = urlVarPair[1];
+					//alert(document.$_GET[urlVarPair[0]]);
+					param = urlVarPair[0];
+					if(param == "type")
+					{
+						switch(document.$_GET[urlVarPair[0]])
+						{
+							case "3":
+								str = _("LOGIN_ERROR") + "<br>" + _("RESET_PASSWORD");
+								break;
+							case "4":
+							case "5":
+								str = _("LOGIN_ERROR") + "<br>" + _("CHECK_ID_PASSWORD");
+								break;
+							case "6":
+								str = _("LOGIN_ERROR") + "<br>" + _("ANOTHER_USER_HAS_LOGIN_ALREADY");
+								break;
+							case "7":
+								str = _("LOGIN_ERROR") + "<br>" + _("ANOTHER_ID_HAS_LOGIN_ALREADY");
+								break;
+							default:
+								str = _("LOGIN_ERROR") + "<br>" + _("UNKNOWN_ERROR") ;
+								break;
+						}
+
+						$("#input_area_text").html(str);
+
+					}
+				}      
+			}   
+		}
+
+
+}
+
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div class="login_d" align="middle">
+		<ul>
+			<li id="logo">
+				<img src="img/product.png" alt="logo" align="middle"/>
+			</li>
+		</ul>
+	</div>
+	<div class="login_d">
+		<ul>
+			<li class="input_area" id="input_area_text">
+			</li>
+			<li class="input_area">
+				<span class="input_btn_area">
+				<button class="lbtn ls"  id="submit" onclick="window.location.href= 'login.html';"></button>
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div id="footer" algin="middle" >
+	<div class="info">
+	<center><p id="copyright" class="copyright"></p></center>
+	</div>
+	</div><!-- E : #footer -->
+	</div>
+	</body>
+</html>
