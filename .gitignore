@@ -7,9 +7,10 @@ bitbake-cookerdaemon.log
 vivix-s/image/*
 vivix-s/package/*
 !vivix-s/package/package.sh
-!vivix-s/image/dummy
+!vivix-s/openwrimage/dummy
 .git_bak
-sources/
+sources/*
+!/sources/meta-openwrt/
 .repo/
 /README
 /README-IMXBSP
