@@ -1,9 +1,9 @@
 /build/tmp
-downloads
+/downloads
 bitbake-cookerdaemon.log
-sstate-cache/
+/build/sstate-cache/
 *.lock
-build/cache
+/build/cache
 vivix-s/image/*
 vivix-s/package/*
 !vivix-s/package/package.sh
@@ -11,3 +11,8 @@ vivix-s/package/*
 .git_bak
 sources/
 .repo/
+/README
+/README-IMXBSP
+/imx-setup-release.sh
+/setup-environmen
+/repo
