@@ -8,12 +8,10 @@ vivix-s/image/*
 vivix-s/package/*
 !vivix-s/package/package.sh
 !vivix-s/package/app_image.gz.org
-!vivix-s/package/app/.dummy
-!vivix-s/package/script/*
-!vivix-s/package/output/app/.dummy
-!vivix-s/package/output/driver/.dummy
-!vivix-s/package/output/www/.dummy
+!vivix-s/package/script
+!vivix-s/**/.dummy
 !vivix-s/image/.dummy
+!./dummy
 .git_bak
 sources/*
 !/sources/meta-openwrt/
