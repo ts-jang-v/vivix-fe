@@ -1,6 +1,5 @@
 /build/*
-!/build/conf/local.conf.org
-!/build/conf/bblayers.conf.org
+!/build/conf
 /downloads
 bitbake-cookerdaemon.log
 *.lock
